@@ -21,7 +21,7 @@ public class TextBuddy {
 
 	boolean exitControl = true;
 
-	// Magic Strings
+	// Magic strings for error messages
 	private static final String INVALID_COMMAND_ERROR = "Invalid Command: Valid commands are \"add\", \"delete\", \"display\", \"clear\" and \"exit\"";
 	private static final String FILE_CREATION_ERROR = "Error encountered when trying to create file";
 	private static final String INSERTION_ERROR = "Error encountered when trying to insert line into file";
