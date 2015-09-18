@@ -24,7 +24,7 @@ public class TextBuddy {
 	boolean exitControl = true;
 
 	// Magic strings for error messages
-	private static final String INVALID_COMMAND_ERROR = "Invalid Command: Valid commands are \"add\", \"delete\", \"display\", \"clear\" and \"exit\"";
+	private static final String INVALID_COMMAND_ERROR = "Invalid Command: Valid commands are \"add\", \"delete\", \"display\", \"clear\", \"search\", \"sort\" and \"exit\"";
 	private static final String FILE_CREATION_ERROR = "Error encountered when trying to create file";
 	private static final String INSERTION_ERROR = "Error encountered when trying to insert line into file";
 	private static final String DELETION_ERROR = "Error encountered when trying to delete line from file";
@@ -169,7 +169,6 @@ public class TextBuddy {
 		try {
 			File inputFile = new File(fileName);
 			File tempFile = new File("temp.txt");
-
 			br = new BufferedReader(new FileReader(fileName));
 
 			String currentLine, removedLine = null, trimmedLine = null;
@@ -179,7 +178,7 @@ public class TextBuddy {
 				// if line is not to be removed, print to new file
 				if (lineCounter != lineToRemove) {
 					trimmedLine = trimLine(currentLine);
-					writeToFile(fileName, trimmedLine);
+					writeToFile("temp.txt", trimmedLine);
 				} else {
 					removedLine = trimLine(currentLine);
 				}
@@ -221,8 +220,10 @@ public class TextBuddy {
 			}
 
 			// remove the last "\n"
-			returnString = returnString.substring(0, returnString.length() - 1);
-
+			if(!returnString.equals("")){
+				returnString = returnString.substring(0, returnString.length() - 1);
+			}
+			
 			br.close();
 
 			if (isEmpty) {
