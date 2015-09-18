@@ -274,7 +274,7 @@ public class TextBuddy {
 			inputFile.delete();
 			tempFile.renameTo(inputFile);
 
-			returnString += "Sorted File: \n";
+			returnString += "Sorted File:\n";
 			returnString += displayContents(fileName);
 
 			return returnString;
