@@ -117,6 +117,10 @@ public class TextBuddy {
 			case "clear" :
 				returnMessage = clearContents(fileName);
 				break;
+				
+			case "sort" :
+				returnMessage = sort(fileName);
+				break;
 
 			case "exit" :
 				this.exitControl = false;

@@ -140,5 +140,20 @@ public class TextBuddyTest {
 		
 		assertEquals(expectedOutput, testTB.sort(fileName));
 	}
+	
+	@Test
+	public void testSearch(){
+		//clear file contents before testing
+		testTB.clearContents(fileName);
+		
+		testTB.writeToFile(fileName, "Hello world!");
+		testTB.writeToFile(fileName, "Goodbye world!");
+		testTB.writeToFile(fileName, "Hello Zi Kai");
+		testTB.writeToFile(fileName, "GoodBye Zi Kai");
+		
+		String expectedOutput = "Line number(s) containing the word \" hello \": 1, 3";
+		
+		assertEquals(expectedOutput, testTB.search(fileName, "hello"));
+	}
 
 }
