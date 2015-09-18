@@ -31,7 +31,8 @@ public class TextBuddy {
 	private static final String DISPLAY_ERROR = "Error encountered when trying to display file";
 	private static final String CLEAR_ERROR = "Error encountered when trying to clear contents from file";
 	private static final String SORT_ERROR = "Error encountered when trying to sort the file";
-	
+	private static final String SEARCH_ERROR = "Error encountered when trying to search contents from file";
+
 	TextBuddy(String fileName) {
 		this.fileName = fileName;
 	}
@@ -117,9 +118,13 @@ public class TextBuddy {
 			case "clear" :
 				returnMessage = clearContents(fileName);
 				break;
-				
+
 			case "sort" :
 				returnMessage = sort(fileName);
+				break;
+			
+			case "search" :
+				returnMessage = search(fileName, extractedCommand[1]);
 				break;
 
 			case "exit" :
@@ -214,10 +219,10 @@ public class TextBuddy {
 				isEmpty = false;
 				lineCounter++;
 			}
-			
-			//remove the last "\n"
-			returnString = returnString.substring(0, returnString.length()-1);
-		
+
+			// remove the last "\n"
+			returnString = returnString.substring(0, returnString.length() - 1);
+
 			br.close();
 
 			if (isEmpty) {
@@ -247,7 +252,7 @@ public class TextBuddy {
 			return CLEAR_ERROR;
 		}
 	}
-	
+
 	String sort(String fileName) {
 		try {
 			File inputFile = new File(fileName);
@@ -286,8 +291,51 @@ public class TextBuddy {
 			return SORT_ERROR;
 		}
 	}
-	
-	
+
+	String search(String fileName, String query) {
+		try {
+			br = new BufferedReader(new FileReader(fileName));
+
+			ArrayList<Integer> lineNumbers = new ArrayList<Integer>();
+
+			String currentLine;
+			String returnString = "";
+			int lineCounter = 1;
+
+			// Changing both query and line to be read to lower case to provide
+			// case-insenstive matching
+			// Using of regular expressions to
+			String regex = ".*" + query.toLowerCase() + ".*";
+
+			while ((currentLine = br.readLine()) != null) {
+				// if the current line matches the regex, add the current line
+				// number to the lineNumbers array
+				if (trimLine(currentLine).toLowerCase().matches(regex)) {
+					lineNumbers.add(lineCounter);
+				}
+				lineCounter++;
+			}
+
+			if (lineNumbers.size() > 0) {
+				returnString += "Line number(s) containing the word \"" + query + "\": ";
+				// print the first index
+				returnString += lineNumbers.get(0);
+				if (lineNumbers.size() >= 2) {
+					for (int i = 1; i < lineNumbers.size(); i++) {
+						returnString += ", " + lineNumbers.get(i);
+					}
+				}
+			} else {
+				returnString = "There are no lines containing the word \"" + query + "\"";
+			}
+
+			br.close();
+
+			return returnString;
+		} catch (IOException e) {
+			return SEARCH_ERROR;
+		}
+	}
 
 	public static void main(String args[]) {
 		if (args.length == 1) {
