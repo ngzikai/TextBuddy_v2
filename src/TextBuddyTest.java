@@ -124,5 +124,21 @@ public class TextBuddyTest {
 		
 		assertTrue(isEmpty);
 	}
+	
+	@Test
+	public void TestSort(){
+		//clear file contents before testing
+		testTB.clearContents(fileName);
+		
+		testTB.writeToFile(fileName, "a");
+		testTB.writeToFile(fileName, "c");
+		testTB.writeToFile(fileName, "b");
+		
+		String expectedOutput = "1: a\n" + 
+								"2: b\n" +
+								"3: c";
+		
+		assertEquals(expectedOutput, sort(fileName));
+	}
 
 }
