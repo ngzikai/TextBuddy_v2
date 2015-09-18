@@ -151,9 +151,11 @@ public class TextBuddyTest {
 		testTB.writeToFile(fileName, "Hello Zi Kai");
 		testTB.writeToFile(fileName, "GoodBye Zi Kai");
 		
-		String expectedOutput = "Line number(s) containing the word \" hello \": 1, 3";
+		String expectedOutput = "Line number(s) containing the word \"hello\": 1, 3";
+		String expectedOutput2 = "There are no lines containing the word \"lalalalala\"";
 		
 		assertEquals(expectedOutput, testTB.search(fileName, "hello"));
+		assertEquals(expectedOutput2, testTB.search(fileName, "lalalalala"));
 	}
 
 }

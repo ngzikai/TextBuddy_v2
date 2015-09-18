@@ -1,3 +1,4 @@
-a
-b
-c
+Hello world!
+Goodbye world!
+Hello Zi Kai
+GoodBye Zi Kai
