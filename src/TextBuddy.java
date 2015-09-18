@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /*
@@ -28,6 +30,7 @@ public class TextBuddy {
 	private static final String DELETION_ERROR = "Error encountered when trying to delete line from file";
 	private static final String DISPLAY_ERROR = "Error encountered when trying to display file";
 	private static final String CLEAR_ERROR = "Error encountered when trying to clear contents from file";
+	private static final String SORT_ERROR = "Error encountered when trying to sort the file";
 	
 	TextBuddy(String fileName) {
 		this.fileName = fileName;
@@ -240,6 +243,47 @@ public class TextBuddy {
 			return CLEAR_ERROR;
 		}
 	}
+	
+	String sort(String fileName) {
+		try {
+			File inputFile = new File(fileName);
+			File tempFile = new File("temp.txt");
+			ArrayList<String> fileContents = new ArrayList<String>();
+
+			br = new BufferedReader(new FileReader(fileName));
+
+			String currentLine, trimmedLine = null;
+
+			String returnString = "";
+
+			while ((currentLine = br.readLine()) != null) {
+				// if line is not to be removed, print to new file
+				trimmedLine = trimLine(currentLine);
+				fileContents.add(trimmedLine);
+			}
+			br.close();
+
+			Collections.sort(fileContents);
+
+			for (int i = 0; i < fileContents.size(); i++) {
+				String s = writeToFile("temp.txt", fileContents.get(i));
+				// System.out.println(s);
+			}
+
+			// delete the old inputFile and rename tempFile as the inputFile
+			inputFile.delete();
+			tempFile.renameTo(inputFile);
+
+			returnString += "Sorted File: \n";
+			returnString += displayContents(fileName);
+
+			return returnString;
+		} catch (IOException e) {
+			return SORT_ERROR;
+		}
+	}
+	
+	
 
 	public static void main(String args[]) {
 		if (args.length == 1) {

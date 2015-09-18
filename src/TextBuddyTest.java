@@ -2,7 +2,6 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.junit.Before;
@@ -126,7 +125,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void TestSort(){
+	public void testSort(){
 		//clear file contents before testing
 		testTB.clearContents(fileName);
 		
@@ -134,11 +133,12 @@ public class TextBuddyTest {
 		testTB.writeToFile(fileName, "c");
 		testTB.writeToFile(fileName, "b");
 		
-		String expectedOutput = "1: a\n" + 
+		String expectedOutput = "Sorted File:\n" +
+								"1: a\n" + 
 								"2: b\n" +
 								"3: c";
 		
-		assertEquals(expectedOutput, sort(fileName));
+		assertEquals(expectedOutput, testTB.sort(fileName));
 	}
 
 }
