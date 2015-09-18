@@ -165,7 +165,7 @@ public class TextBuddy {
 		}
 	}
 
-	String removeFromFile(String fileName, int lineToRemove) {
+	 public String removeFromFile(String fileName, int lineToRemove) {
 		try {
 			File inputFile = new File(fileName);
 			File tempFile = new File("temp.txt");
@@ -201,7 +201,7 @@ public class TextBuddy {
 		}
 	}
 
-	String displayContents(String fileName) {
+	public String displayContents(String fileName) {
 		try {
 			br = new BufferedReader(new FileReader(fileName));
 
@@ -236,7 +236,7 @@ public class TextBuddy {
 		}
 	}
 
-	String clearContents(String fileName) {
+	public String clearContents(String fileName) {
 		// creates a new empty file and renames it to the original file, then
 		// deletes the original file
 		try {
@@ -254,7 +254,7 @@ public class TextBuddy {
 		}
 	}
 
-	String sort(String fileName) {
+	public String sort(String fileName) {
 		try {
 			File inputFile = new File(fileName);
 			File tempFile = new File("temp.txt");
@@ -293,7 +293,7 @@ public class TextBuddy {
 		}
 	}
 
-	String search(String fileName, String query) {
+	public String search(String fileName, String query) {
 		try {
 			br = new BufferedReader(new FileReader(fileName));
 
@@ -317,6 +317,7 @@ public class TextBuddy {
 				lineCounter++;
 			}
 
+			//If there are line numbers that matches the query
 			if (lineNumbers.size() > 0) {
 				returnString += "Line number(s) containing the word \"" + query + "\": ";
 				// print the first index
